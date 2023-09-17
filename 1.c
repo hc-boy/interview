@@ -30,7 +30,7 @@ struct TreeNode* buildTree(char* preorder, int preorderSize, char* inorder, int 
 }
 char* postorderTraversal(struct TreeNode* root, int* returnSize){
     (*returnSize)=0;
-    int* ans= malloc(sizeof(char)*30);
+    char* ans= malloc(sizeof(char)*30);
     tra(root, returnSize,ans);
     return ans;
 }
@@ -38,10 +38,10 @@ int main(){
     int n;
     char* inorder="ABC";
     char* preorder="BAC";
-    n=3
+    n=3;
     struct TreeNode* root = buildTree(preorder,n,inorder,n);
     int size;
     char* ans=postorderTraversal(root,&size);
-    print("%s\n",ans);
+    printf("%s\n",ans);
 
 }
