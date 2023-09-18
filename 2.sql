@@ -14,5 +14,5 @@ WHERE
             Employee
         GROUP BY DepartmentId
     )
-Order By Salary DesC
+Order By Department ASC
 ;
