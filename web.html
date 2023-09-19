@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Email Input</title>
+  <style>
+    input[type="email"] {
+      border: 2px solid gray;
+      border-radius: 5px;
+      padding: 5px;
+      font-size: 16px;
+    }
+
+    input[type="email"].valid {
+      border-color: green;
+    }
+
+    input[type="email"].invalid {
+      border-color: red;
+    }
+
+    button[type="submit"] {
+      background-color: gray;
+      color: white;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      right: 30cm;
+    }
+
+    button[type="submit"]:disabled {
+      background-color: lightgray;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <form>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    <div class="container">
+      <button type="submit" id="submit-btn" disabled>Submit</button>
+      <p id="p1" right="30cm"></p>
+    </div>
+    
+  </form>
+  
+
+  <script>
+    const emailInput = document.getElementById('email');
+    const submitBtn = document.getElementById('submit-btn');
+
+    emailInput.addEventListener('input', () => {
+      const email = emailInput.value.trim();
+      const regex = /^[a-zA-Z0-9._%+-]+@(connect\.)?hku\.hk$/;
+
+      if (regex.test(email)) {
+        emailInput.classList.remove('invalid');
+        emailInput.classList.add('valid');
+        submitBtn.disabled = false;
+
+        // Extract UID from email
+        const uid = email.split('@')[0];
+        submitBtn.textContent = `Submit`;
+        document.getElementById("p1").innerHTML=uid;
+      } else {
+        emailInput.classList.remove('valid');
+        emailInput.classList.add('invalid');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submit';
+      }
+    });
+  </script>
+</body>
+</html>
