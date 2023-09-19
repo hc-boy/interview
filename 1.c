@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 struct TreeNode {
       char val;
       struct TreeNode *left;
@@ -19,6 +20,14 @@ struct TreeNode* buildTree(char* preorder, int preorderSize, char* inorder, int 
     root -> right = buildTree(preorder + index + 1,preorderSize - index - 1,inorder + index + 1,preorderSize - index - 1);
     return root;
 }
+void* temp(struct TreeNode* T){
+    if(T!=NULL){
+        temp(T->left);
+        temp(T->right);
+        free(T);
+    }
+    return NULL;
+}
  void tra(struct TreeNode* root, int* returnSize, char* ans){
     if(root==NULL)return;
     
@@ -31,17 +40,25 @@ struct TreeNode* buildTree(char* preorder, int preorderSize, char* inorder, int 
 char* postorderTraversal(struct TreeNode* root, int* returnSize){
     (*returnSize)=0;
     char* ans= malloc(sizeof(char)*30);
+    //printf("%d\n",sizeof(ans));
+    memset(ans, '\0', sizeof(char)*30);
     tra(root, returnSize,ans);
     return ans;
 }
 int main(){
     int n;
-    char* inorder="ABC";
-    char* preorder="BAC";
-    n=3;
+    char inorder[30];
+    char preorder[30];
+    printf("please enter inorder sequence:\n");
+    gets(inorder);
+    printf("please enter preorder sequence:\n");
+    gets(preorder);
+    n=strlen(inorder);
+    printf("size of string: %d\n",n);
     struct TreeNode* root = buildTree(preorder,n,inorder,n);
     int size;
     char* ans=postorderTraversal(root,&size);
     printf("%s\n",ans);
-
+    temp(root);
+    free(ans);
 }
